@@ -23,11 +23,9 @@ function Category() {
                 <Modal.Body>
                     <p>Please fill the Following details</p>
                     <Form className="border border-secondary p-3">
+                        
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Control type="email" placeholder="Enter Category ID" />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Control type="email" placeholder="Enter Category Name" />
+                            <Form.Control type="text" placeholder="Enter Category Name" />
                         </Form.Group>
                     </Form>
                 </Modal.Body>

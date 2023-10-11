@@ -23,5 +23,20 @@ export const getAVideo = async (id)=>{
 
 export const deleteAVideo = async (id)=>{
     //call delete http req from api/videos to add video in json server return response to videoCard component
-    return await commonAPI("DELETE",`${serverURL}/videos/${id}`,"")
+    return await commonAPI("DELETE", `${serverURL}/videos/${id}`,{})
+}
+
+export const addHistory = async (body)=>{
+    // call POST http request to history to json server and return to videoCard component
+    return await commonAPI("POST",`${serverURL}/history`,body)
+}
+
+export const getHistory = async () => {
+    // call POST http request to history to json server and return to history component
+    return await commonAPI("GET", `${serverURL}/history`,"")
+}
+
+export const saveCategory = async (body) =>{
+    // call POST http request to history to json server and return to history component
+    return await commonAPI('POST',`${serverURL}`,body)
 }

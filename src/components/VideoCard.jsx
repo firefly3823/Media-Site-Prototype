@@ -1,23 +1,48 @@
-import React,{useState} from 'react'
-import { Card, Modal,Button } from 'react-bootstrap'
-function VideoCard({displaydata}) {
-    console.log(displaydata)
+import React, { useState } from 'react'
+import { Card, Modal, Button } from 'react-bootstrap'
+import { deleteAVideo, addHistory } from '../services/allApi';
+function VideoCard({ displaydata, setDeleteStatVideo }) {
+    // console.log(displaydata)
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = async () => {
+        setShow(true);
+        // get caption and link
+        const { caption, embededlink } = displaydata
+        //generate time stamp
+        let today = new Date()
+        const timestamp = new Intl.DateTimeFormat("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(today)
+
+        // console.log(caption, embededlink, timestamp)
+
+        let reqBody = {
+            caption, embededlink, timestamp
+        }
+        // api call 
+        await addHistory(reqBody)
+        
+
+    }
+    //deleting function
+    const removeVideo = async (id) => {
+        //make api call
+        await deleteAVideo(id)  //API CALL
+        setDeleteStatVideo(true) // State Lift -  changing parent state to true
+    }
+
     return (
         <>
             {
                 displaydata &&
                 <Card className='mb-3'>
-                        <Card.Img onClick={handleShow} style={{height:"150px"}} variant="top" src={displaydata?.url} />
-                <Card.Body>
-                    <Card.Title className='d-flex justify-content-evenly align-items-center'>
-                    <h6>{displaydata?.caption}</h6>
-                    <button className='btn'><i className="fa-solid fa-trash text-warning"></i></button>
-                    </Card.Title>   
-                </Card.Body>
-            </Card>
+                    <Card.Img onClick={handleShow} style={{ height: "150px" }} variant="top" src={displaydata?.url} />
+                    <Card.Body>
+                        <Card.Title className='d-flex justify-content-evenly align-items-center'>
+                            <h6>{displaydata?.caption}</h6>
+                            <button onClick={() => removeVideo(displaydata?.id)} className='btn'><i className="fa-solid fa-trash text-warning"></i></button>
+                        </Card.Title>
+                    </Card.Body>
+                </Card>
 
             }
             <Modal show={show} onHide={handleClose}>
