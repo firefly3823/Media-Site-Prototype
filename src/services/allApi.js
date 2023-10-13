@@ -38,5 +38,26 @@ export const getHistory = async () => {
 
 export const saveCategory = async (body) =>{
     // call POST http request to history to json server and return to history component
-    return await commonAPI('POST',`${serverURL}`,body)
+    return await commonAPI('POST', `${serverURL}/categories`,body)
+}
+
+// getCategroy
+
+export const getAllCategory = async()=>{
+    // getAllCategory from server and give to category component
+    return await commonAPI('GET',`${serverURL}/categories`,"")
+}
+
+export const deleteCategory = async (id)=>{
+    // delete category
+    return await commonAPI('DELETE',`${serverURL}/categories/${id}`,{})
+}
+
+export const updateCategory = async (id,body) => {
+    // udpating Category
+    return await commonAPI('PUT', `${serverURL}/categories/${id}`,body)
+}
+export const deleteHistory = async (id) => {
+    // delete History from history and response to watch history
+    return await commonAPI('DELETE', `${serverURL}/history/${id}`, {})
 }
